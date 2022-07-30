@@ -4,27 +4,20 @@ import { CardActions, IconButton } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 
-export default function Action() {
+export default function Action({postId}) {
   const [cant, setCant] = useState(0);
   const [list, setList] = React.useState([]);
   useEffect(() => {
     Axios({
-      url: "https://jsonplaceholder.typicode.com/comments",
-    })
+      url: `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
+  })
       .then((response) => {
-        setList(response.data);
+          setList(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [setList]);
-
-  const cont = () => {
-    var i =0;
-   for(i in list){
-    console.log("soy", i)
-   }
-  };
   return (
     <div className="">
       <CardActions disableSpacing>
@@ -32,7 +25,7 @@ export default function Action() {
           <FavoriteBorderOutlinedIcon />
         </IconButton>
         <IconButton aria-label="Comment">
-          <ModeCommentOutlinedIcon />
+          <ModeCommentOutlinedIcon />{list.length}
         </IconButton>
       </CardActions>
     </div>
