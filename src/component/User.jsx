@@ -11,11 +11,12 @@ export default function User({ userId }) {
     })
       .then((response) => {
         setList(response.data);
+        console.log(response)
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [setList]);
+  }, []);
   return (
     <div>
       <CardHeader
