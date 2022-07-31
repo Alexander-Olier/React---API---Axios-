@@ -2,6 +2,7 @@ import { Box, DialogContent, Grid, makeStyles, Modal } from "@mui/material";
 import { Container } from "@mui/system";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import Header from "../component/Header";
 import List from "../component/List";
 import ModalPost from "../component/ModalPost";
 
@@ -53,7 +54,8 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <Container>
+      <Header />
+      <Container sx={{pt:12}}>
         <Grid container spacing={2}>
           {list.map((item) => (
             <Grid item xs={3} maxWidth="sm">
