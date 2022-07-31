@@ -68,7 +68,7 @@ export default function Home() {
         console.log(response.data);
         //list.push(response);
         //setList(list)
-        setList((list) => [...list, response]);
+        setList((list) => [...list, response.data]);
         console.log(list);
         return;
       } else {
