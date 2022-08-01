@@ -15,7 +15,7 @@ export default function User({ userId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [setList]);
+  }, []);
   return (
     <div>
       <CardHeader

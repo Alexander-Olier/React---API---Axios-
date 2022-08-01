@@ -2,6 +2,7 @@ import { Box, DialogContent, Grid, makeStyles, Modal } from "@mui/material";
 import { Container } from "@mui/system";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import Header from "../component/Header";
 import List from "../component/List";
 import ModalPost from "../component/ModalPost";
 
@@ -11,12 +12,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "50%",
-  height:"60vh",
+  height: "60vh",
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 24,
   p: 4,
-  outline:"none"
+  outline: "none",
 };
 export default function Home() {
   const ref = React.createRef();
@@ -38,26 +39,52 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const listPost = async () => {
-      Axios({
-        url: "https://jsonplaceholder.typicode.com/posts",
-      })
-        .then((response) => {
-          setList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
     listPost();
   }, []);
+  const listPost = async () => {
+    await Axios({
+      url: "https://jsonplaceholder.typicode.com/posts",
+    })
+      .then((response) => {
+        setList(response.data);
+        console.log(list);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const add = async (title, body) => {
+    Axios({
+      method: "post",
+      url: "https://jsonplaceholder.typicode.com/posts",
+      data: JSON.stringify({
+        title: title,
+        body: body,
+        userId: 10,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    }).then((response) => {
+      if (response) {
+        console.log(response.data);
+        //list.push(response);
+        //setList(list)
+        setList((list) => [...list, response.data]);
+        console.log(list);
+        return;
+      } else {
+        return response.json;
+      }
+    });
+  };
+
   return (
     <div>
-      <Container>
+      <Header add={add} />
+      <Container sx={{ pt: 12 }}>
         <Grid container spacing={2}>
-          {list.map((item) => (
-            <Grid item xs={3} maxWidth="sm">
-              <List key={item.id} item={item} handleOpen={handleOpen}></List>
+          {list.map((item, index) => (
+            <Grid key={index} item xs={3} maxWidth="sm">
+              <List item={item} handleOpen={handleOpen}></List>
             </Grid>
           ))}
         </Grid>
