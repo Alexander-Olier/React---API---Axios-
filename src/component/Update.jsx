@@ -1,5 +1,6 @@
 import {
   Button,
+  Container,
   MenuItem,
   Modal,
   TextareaAutosize,
@@ -7,7 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+
 
 const style = {
   position: "absolute",
@@ -27,7 +28,6 @@ export default function Update({item, onUpdate}) {
   const [title, setTitle] = useState("");
   const[body, setBody] = useState("");
   const [open, setOpen] = React.useState(false);
-  const [isClicked, setIsClicked] = React.useState([]);
   const handleOpen = () => setOpen(true);
 
   const onTitleChange = (e) => setTitle(e.target.value);
@@ -41,7 +41,6 @@ export default function Update({item, onUpdate}) {
   }
   const handleClose = () => {
     setOpen(false);
-    setIsClicked([]);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ export default function Update({item, onUpdate}) {
         aria-describedby="modal-modal-description"
       >
         <Box container sx={style}>
-
+          <Container>
           <form onSubmit={handleSubmit}>
             <TextField
               placeholder="Title"
@@ -76,7 +75,7 @@ export default function Update({item, onUpdate}) {
               onChange={onTitleChange}
             />
             <TextareaAutosize
-              style={{ width: "100%", border: "none" }}
+              style={{ width: "100%", border: "none", background:"#fff" }}
               aria-label="minimum height"
               minRows={25}
               placeholder="Body"
@@ -88,6 +87,7 @@ export default function Update({item, onUpdate}) {
               update
             </Button>
           </form>
+          </Container>
         </Box>
       </Modal>
     </div>

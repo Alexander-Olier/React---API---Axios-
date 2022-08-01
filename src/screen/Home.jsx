@@ -11,8 +11,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
-  height: "60vh",
+  width: "60%",
+  height: "80vh",
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 24,
@@ -127,7 +127,7 @@ export default function Home() {
       <Container sx={{ pt: 12 }}>
         <Grid container spacing={2}>
           {list.map((item, index) => (
-            <Grid key={index} item xs={3} maxWidth="sm">
+            <Grid key={index} item xs={12} sm={6} md={4} maxWidth="sm">
               <List
                 item={item}
                 handleOpen={handleOpen}
@@ -145,7 +145,6 @@ export default function Home() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {isClicked && (
           <Box sx={style}>
             <ModalPost
               id={`${isClicked.id}`}
@@ -153,7 +152,6 @@ export default function Home() {
               ref={ref}
             ></ModalPost>
           </Box>
-        )}
       </Modal>
     </div>
   );

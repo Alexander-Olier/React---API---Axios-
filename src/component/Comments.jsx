@@ -15,12 +15,12 @@ export default function Comments({ postId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
   return (
     <div>
       <Grid
         container
-        sx={{ maxHeight: "250px", overflowY: "auto", overflowX: "hidden" }}
+        sx={{ maxHeight: "50vh", overflowY: "auto", overflowX: "hidden" }}
       >
         {list.map((item) => (
           <Box sx={{ m: 2 }}>

@@ -1,6 +1,7 @@
-import Axios from "axios";
 import React, { useEffect } from "react";
+import Axios from "axios";
 
+//Material UI
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -9,10 +10,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-import User from "./User";
-
+//icons
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
+
+//Archivos
+import User from "./User";
 import Update from "./Update";
 
 export default function List({ item, handleOpen, onDelete, onUpdate }) {
@@ -24,9 +27,7 @@ export default function List({ item, handleOpen, onDelete, onUpdate }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleDelete = (id) => {
-    onDelete(id);
-  };
+
   const [list, setList] = React.useState([]);
   useEffect(() => {
     Axios({
@@ -38,11 +39,11 @@ export default function List({ item, handleOpen, onDelete, onUpdate }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
 
   return (
     <div>
-      <Card sx={{ maxWidth: 350 }}>
+      <Card sx={{ width: '100%' }}>
         <Grid container>
           <Grid item xs={9}>
             <User userId={item.userId} />
@@ -72,8 +73,12 @@ export default function List({ item, handleOpen, onDelete, onUpdate }) {
                 horizontal: "left",
               }}
             >
-              <MenuItem onClick={handleClose}><Button onClick={()=>onDelete(item.id)}>Delete{item.id}</Button></MenuItem>
-              <Update item={item} onUpdate={onUpdate}/>
+              <MenuItem onClick={handleClose}>
+                <Button onClick={() => onDelete(item.id)}>
+                  Delete{item.id}
+                </Button>
+              </MenuItem>
+              <Update item={item} onUpdate={onUpdate} />
             </Menu>
           </Grid>
         </Grid>
