@@ -1,13 +1,12 @@
-# CRUD consumiendo la api de https://jsonplaceholder.typicode.com/ 
+# CRUD API
+
+image.png
 ## Usando herramientas como:
-### React y Axios
 
-# Getting Started with Create React App
+React, Axios junto a la API de https://jsonplaceholder.typicode.com/
+Frontend:  Material UI
 
-## Available Scripts
-
-In the project directory, you can run:
-
+# Arrancar el proyecto
 ### `npm start`
 
 Runs the app in the development mode.\
