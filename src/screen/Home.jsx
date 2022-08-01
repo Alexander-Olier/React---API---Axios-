@@ -79,13 +79,13 @@ export default function Home() {
     });
   };
   const onUpdate = async (title, body, id) => {
-    Axios({
+    await Axios({
       method: "put",
       url: `https://jsonplaceholder.typicode.com/posts/${id}`,
       data: JSON.stringify({
         title: title,
         body: body,
-        id: id,
+        id:id
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
@@ -145,13 +145,13 @@ export default function Home() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-          <Box sx={style}>
-            <ModalPost
-              id={`${isClicked.id}`}
-              item={isClicked}
-              ref={ref}
-            ></ModalPost>
-          </Box>
+        <Box sx={style}>
+          <ModalPost
+            id={`${isClicked.id}`}
+            item={isClicked}
+            ref={ref}
+          ></ModalPost>
+        </Box>
       </Modal>
     </div>
   );

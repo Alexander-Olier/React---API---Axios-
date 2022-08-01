@@ -44,12 +44,12 @@ export default function Update({item, onUpdate}) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onUpdate(e.target.body.value, e.target.title.value, item.id);
+    onUpdate( e.target.title.value, e.target.body.value, item.id);
     e.target.title.value = "";
     e.target.body.value = "";
+    handleClose();
   };
 
-  console.log(item.id)
   return (
     <div>
       <MenuItem>

@@ -8,7 +8,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "50%",
-  height: "60vh",
+  height: "70vh",
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 20,
@@ -23,9 +23,10 @@ export default function Header({ add }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    add(e.target.body.value, e.target.title.value);
+    add( e.target.title.value, e.target.body.value);
     e.target.title.value = "";
     e.target.body.value = "";
+    handleClose();
   };
   return (
     <div>
