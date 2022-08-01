@@ -1,6 +1,13 @@
-import { Box, Button, Modal, TextareaAutosize, TextField } from "@mui/material";
-import { Container } from "@mui/system";
-import React from "react";
+import {
+  Button,
+  MenuItem,
+  Modal,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import Header from "./Header";
 
 const style = {
   position: "absolute",
@@ -8,7 +15,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "50%",
-  height: "60vh",
+  height: "70vh",
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 24,
@@ -16,33 +23,41 @@ const style = {
   outline: "none",
 };
 
-export default function Header({ add }) {
+export default function Update({item, onUpdate}) {
+  const [title, setTitle] = useState("");
+  const[body, setBody] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [isClicked, setIsClicked] = React.useState([]);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
+  const onTitleChange = (e) => setTitle(e.target.value);
+  const onBodyChange = (e) => setBody(e.target.value);
+  useEffect(()=>{
+   addDatos()
+  }, [])
+  const addDatos = () =>{
+    setTitle(item.title)
+    setBody(item.body)
+  }
+  const handleClose = () => {
+    setOpen(false);
+    setIsClicked([]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    add(e.target.body.value, e.target.title.value);
+    onUpdate(e.target.body.value, e.target.title.value, item.id);
     e.target.title.value = "";
     e.target.body.value = "";
   };
+
+  console.log(item.id)
   return (
     <div>
-      <header>
-        <Container>
-          <ul>
-            <li>
-              <Button variant="text" href="/">Home</Button>
-            </li>
-            <li>
-              <Button onClick={handleOpen} variant="text">
-                Add
-              </Button>
-            </li>
-          </ul>
-        </Container>
-      </header>
+      <MenuItem>
+        <Button onClick={handleOpen} variant="text">
+          Update
+        </Button>
+      </MenuItem>
       <Modal
         open={open}
         onClose={handleClose}
@@ -50,12 +65,15 @@ export default function Header({ add }) {
         aria-describedby="modal-modal-description"
       >
         <Box container sx={style}>
+
           <form onSubmit={handleSubmit}>
             <TextField
               placeholder="Title"
               name="title"
               variant="standard"
               style={{ width: "100%", border: "none" }}
+              value={title}
+              onChange={onTitleChange}
             />
             <TextareaAutosize
               style={{ width: "100%", border: "none" }}
@@ -63,9 +81,11 @@ export default function Header({ add }) {
               minRows={25}
               placeholder="Body"
               name="body"
+              value={body}
+              onChange={onBodyChange}
             />
             <Button type="submit" onSubmit={handleSubmit} variant="contained">
-              Add
+              update
             </Button>
           </form>
         </Box>
