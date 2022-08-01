@@ -75,7 +75,7 @@ export default function List({ item, handleOpen, onDelete, onUpdate }) {
             >
               <MenuItem onClick={handleClose}>
                 <Button onClick={() => onDelete(item.id)}>
-                  Delete{item.id}
+                  Delete
                 </Button>
               </MenuItem>
               <Update item={item} onUpdate={onUpdate} />

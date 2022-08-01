@@ -17,7 +17,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "50%",
   height: "70vh",
-  bgcolor: "background.paper",
+  bgcolor: "#fff",
   border: "none",
   boxShadow: 24,
   p: 4,
@@ -65,7 +65,7 @@ export default function Update({item, onUpdate}) {
       >
         <Box container sx={style}>
           <Container>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <TextField
               placeholder="Title"
               name="title"
@@ -75,7 +75,7 @@ export default function Update({item, onUpdate}) {
               onChange={onTitleChange}
             />
             <TextareaAutosize
-              style={{ width: "100%", border: "none", background:"#fff" }}
+              style={{ width: "100%", border: "none" }}
               aria-label="minimum height"
               minRows={25}
               placeholder="Body"

@@ -1,4 +1,10 @@
-import { Box, DialogContent, Grid, makeStyles, Modal } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Grid,
+  Modal,
+  Snackbar,
+} from "@mui/material";
 import { Container } from "@mui/system";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -20,7 +26,11 @@ const style = {
   outline: "none",
 };
 export default function Home() {
-  const ref = React.createRef();
+  
+  const [activeAdd, setActiveAdd] = useState(false);
+  const [activeUp, setActiveUp] = useState(false);
+  const [activeDel, setActiveDel] = useState(false);
+
 
   //data
   const [list, setList] = useState([]);
@@ -35,6 +45,9 @@ export default function Home() {
   };
   const handleClose = () => {
     setOpen(false);
+    setActiveAdd(false)
+    setActiveUp(false)
+    setActiveDel(false)
     setIsClicked([]);
   };
 
@@ -68,10 +81,8 @@ export default function Home() {
     }).then((response) => {
       if (response) {
         console.log(response.data);
-        //list.push(response);
-        //setList(list)
         setList((list) => [...list, response.data]);
-        console.log(list);
+        setActiveAdd(true)
         return;
       } else {
         return response.json;
@@ -85,7 +96,7 @@ export default function Home() {
       data: JSON.stringify({
         title: title,
         body: body,
-        id:id
+        id: id,
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
@@ -98,6 +109,7 @@ export default function Home() {
               return listOne.id === id ? { ...res.data } : listOne;
             })
           );
+          setActiveUp(true)
         }
       })
       .catch((err) => {
@@ -115,6 +127,7 @@ export default function Home() {
               return list.id !== id;
             })
           );
+          setActiveDel(true)
         }
       })
       .catch((err) => {
@@ -138,7 +151,6 @@ export default function Home() {
           ))}
         </Grid>
       </Container>
-      <pre>{JSON.stringify(isClicked, null, 2)}</pre>
       <Modal
         open={open}
         onClose={handleClose}
@@ -149,10 +161,18 @@ export default function Home() {
           <ModalPost
             id={`${isClicked.id}`}
             item={isClicked}
-            ref={ref}
           ></ModalPost>
         </Box>
       </Modal>
+      <Snackbar open={activeAdd} autoHideDuration={1000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Se ha guardado correctamente</Alert>
+      </Snackbar>
+      <Snackbar open={activeUp} autoHideDuration={1000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Se ha actualizado correctamente</Alert>
+      </Snackbar>
+      <Snackbar open={activeDel} autoHideDuration={1000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">Se ha eliminado correctamente</Alert>
+      </Snackbar>
     </div>
   );
 }
