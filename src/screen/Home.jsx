@@ -41,6 +41,7 @@ export default function Home() {
   useEffect(() => {
     listPost();
   }, []);
+
   const listPost = async () => {
     await Axios({
       url: "https://jsonplaceholder.typicode.com/posts",
@@ -53,6 +54,7 @@ export default function Home() {
         console.log(error);
       });
   };
+
   const add = async (title, body) => {
     Axios({
       method: "post",
@@ -76,7 +78,49 @@ export default function Home() {
       }
     });
   };
-
+  const onUpdate = async (title, body, id) => {
+    Axios({
+      method: "put",
+      url: `https://jsonplaceholder.typicode.com/posts/${id}`,
+      data: JSON.stringify({
+        title: title,
+        body: body,
+        id: id,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          return;
+        } else {
+          setList(
+            list.map((listOne) => {
+              return listOne.id === id ? { ...res.data } : listOne;
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onDelete = async (id) => {
+    await Axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((res) => {
+        if (res.status !== 200) {
+          return;
+        } else {
+          setList(
+            list.filter((list) => {
+              return list.id !== id;
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <Header add={add} />
@@ -84,7 +128,12 @@ export default function Home() {
         <Grid container spacing={2}>
           {list.map((item, index) => (
             <Grid key={index} item xs={3} maxWidth="sm">
-              <List item={item} handleOpen={handleOpen}></List>
+              <List
+                item={item}
+                handleOpen={handleOpen}
+                onDelete={onDelete}
+                onUpdate={onUpdate}
+              ></List>
             </Grid>
           ))}
         </Grid>
