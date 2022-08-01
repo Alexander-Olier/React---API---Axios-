@@ -11,7 +11,7 @@ const style = {
   height: "60vh",
   bgcolor: "background.paper",
   border: "none",
-  boxShadow: 24,
+  boxShadow: 20,
   p: 4,
   outline: "none",
 };
